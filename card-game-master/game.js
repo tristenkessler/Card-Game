@@ -18,12 +18,11 @@ var Game = function () {
     this.players = [];
     this.trickCards = [];
     this.roundNumber = 0;
-    this.dealerIndex = 0;
+    this.dealerIndex = -1;
     this.leadIndex = 0;
     this.turnIndex = 0;
     this.cardsPlayedThisRound = [];
     this.roundScores = [];
-    this.roundBids = [];
     this.roundTricksTaken = [];
 
     var deckTopIndex = 0;
@@ -519,7 +518,7 @@ var Game = function () {
         this.cardsPlayedThisRound = [];
         this.trickCards = [];
         this.roundNumber = 0;
-        this.dealerIndex = 0;
+        this.dealerIndex = -1;
         this.leadIndex = 0;
         this.turnIndex = 0;
         this.isSpadesBroken = false;
@@ -650,11 +649,7 @@ var Game = function () {
     function GetPlayerNamePosition(playerPosition) {
         switch (playerPosition) {
             case 'South':
-                if (game.players[0].currentRoundBid >= 0) {
-                    return [window.innerWidth*0.5-220,window.innerHeight-350];
-                } else {
-                    return [window.innerWidth*0.5-220,window.innerHeight-330];
-                }
+                return [window.innerWidth*0.5-220,window.innerHeight-330];
             case 'West':
                 return [40,250];
             case 'North':
@@ -733,10 +728,12 @@ var Game = function () {
         for (var i=0; i<this.players.length; i++) {
             var player = this.players[i];
             player.cards = [];
-            player.currentRoundBid = -1;
-            player.currentRoundTricksTaken = -1;
+            player.currentRoundTricksTaken = 0;
             player.isShownVoidInSuit = [false,false,false,false];
         }
+        this.dealerIndex = -1;
+        this.leadIndex = 0;
+        this.turnIndex = 0;
 
         this.ResetPlayerRoundScores();
 
@@ -909,71 +906,14 @@ var Game = function () {
                 cardView.style.transform = 'rotate(' + position[2] + 'deg)';
                 setTimeout(flipUpCard, i * 80, cardView);
             }
-            game.currentMoveStage = "ChoosingBids";
+            game.currentMoveStage = "ChoosingTrickCard";
         }, 50);
         
         setTimeout(function() {
-            bidsReceived = 0;
-            currentBiddingPlayerIndex = (game.dealerIndex + 1)%4;
-            game.leadIndex = currentBiddingPlayerIndex;
-            var player = game.players[currentBiddingPlayerIndex];
-            player.ChooseBid();
+            game.leadIndex = (game.dealerIndex + 1)%4;
+            var player = game.leadIndex;
         
         }, 500);
-    }
-
-    var bidsReceived = 0;
-    var currentBiddingPlayerIndex = 0;
-    
-    this.PromptPlayerToChooseBid = function() {
-
-        if (this.skillLevel === 'Easy' || GetSetting('setting_hints')) {
-            ShowHintButton(0);
-        }
-
-        var el = document.getElementById('choose_bid_view');
-        with(el.style) {
-            WebkitTransition = MozTransition = OTransition = msTransition = "0.5s linear";
-            opacity = 1;
-            visibility = "visible";
-            pointerEvents = "auto";
-        }
-    }
-
-    this.OnChooseBidButtonPressed = function(bid) {
-        var player = game.players[0];
-        player.currentRoundBid = bid;
-        this.OnPlayerFinishedChoosingBid(player);
-    }
-
-    this.OnPlayerFinishedChoosingBid = function(player) {
-        if (player.isHuman) {
-            var el = document.getElementById('choose_bid_view');
-            with(el.style) {
-                WebkitTransition = MozTransition = OTransition = msTransition = "0.4s ease-in";
-                opacity = 0;
-                pointerEvents = "none";
-            }
-        }
-
-        bidsReceived = bidsReceived + 1;
-        if (bidsReceived == 4) {
-            for (var i=0; i<4; i++) {
-                var player = game.players[i];
-                player.currentRoundTricksTaken = 0;
-                UpdatePlayerRoundScore(player);
-            }
-
-            setTimeout(function(aGame) {
-                aGame.StartTrickTaking();
-            }, 1000, this);
-
-        } else {
-            UpdatePlayerRoundScore(player);
-            currentBiddingPlayerIndex = currentBiddingPlayerIndex + 1;
-            var player = game.players[currentBiddingPlayerIndex%4];
-            player.ChooseBid();
-        }
     }
 
     function UpdatePlayerRoundScore(player) {
@@ -982,11 +922,7 @@ var Game = function () {
         position = eval(playerScore.positionFunction);
         playerScore.style.left = position[0] + 'px';
         playerScore.style.top = position[1] + 'px';
-        if (player.currentRoundTricksTaken < 0) {
-            playerScore.innerText = "Bid: " + player.currentRoundBid;        
-        } else {
-            playerScore.innerText = player.currentRoundTricksTaken + "/" + player.currentRoundBid;        
-        }
+        playerScore.innerText = player.currentRoundTricksTaken;        
         
         if (player.isHuman) {
             var playerName = document.getElementById('player_name_South');
@@ -1035,36 +971,20 @@ var Game = function () {
 
     this.BumpHintCards = function() {
         var optimalCards = [];
-        if (this.currentMoveStage === 'ChoosingBids') {
-            var player = this.players[0];
-            var bid = player.FindBestBid(game);
-            var button = document.getElementById('choose_bid_button_' + bid);
-            
-            with (button.style) {
-                transition = 'none';
-                transform = 'scale(0)';
-            }   
-            setTimeout(function() {
-                with (button.style) {
-                    transition = "0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275)";
-                    transform = 'scale(1)';
-                }
-            }, 100); 
-            
-        } else if (this.currentMoveStage === 'ChoosingTrickCard') {
-            var player = this.players[0];
-            var bestCard = player.FindBestPlayingCard(game, true);
-            optimalCards.push(bestCard);
-        }
+        var player = this.players[0];
+        var bestCard = player.FindBestPlayingCard(game, true);
+        optimalCards.push(bestCard);
 
         BumpCards(optimalCards, 0);
     }
 
     this.StartTrickTaking = function() {
-        
         this.turnIndex = this.dealerIndex + 1;
         var nextPlayer = this.players[this.turnIndex%4];
         nextPlayer.ChoosePlayCard();
+        this.dealerIndex = 0;
+        this.leadIndex = 0;
+        this.turnIndex = 0;
     }
 
     this.PromptPlayerToPlayCard = function() {
@@ -1300,45 +1220,19 @@ var Game = function () {
 
     this.FinishRound = function() {
         var aRoundScores = [];
-        var aRoundBids = [];
         var aRoundTricksTaken = [];
         for (var i=0; i<4; i++) {
             var player = this.players[i];
-            aRoundBids.push(player.currentRoundBid);
             aRoundTricksTaken.push(player.currentRoundTricksTaken);
-
-            var bagsTaken = 0;
-            if (player.currentRoundBid == 0) {
-                if (player.currentRoundTricksTaken == 0) {
-                    aRoundScores.push(100);
-                } else {
-                    aRoundScores.push(-100);
-                }
-            } else if (player.currentRoundTricksTaken < player.currentRoundBid) {
-                aRoundScores.push(0);
-            } else {
-                bagsTaken = player.currentRoundTricksTaken - player.currentRoundBid;
-                aRoundScores.push(player.currentRoundBid*10 + bagsTaken);
-            }
-            
-            if(GetSetting('setting_sandbaggingpenalty')) {
-                if (bagsTaken > 0) {
-                    // Penalize for overbags
-                    var previousBags = player.gameScore % 10;
-                    if (previousBags + bagsTaken > 10) {
-                        var score = aRoundScores[i] - 100;
-                        aRoundScores[i] = score;
-                    }
-                }
-            }
-
+            aRoundScores.push(player.currentRoundTricksTaken*10);
             player.gameScore += aRoundScores[i];
         }
 
         this.roundScores.push(aRoundScores);
-        this.roundBids.push(aRoundBids);
         this.roundTricksTaken.push(aRoundTricksTaken);
         this.dealerIndex += 1;
+        this.leadIndex += 1;
+        this.turnIndex += 1;
 
         scoreboard.UpdateScores(this.roundNumber !== 1);
     }
@@ -1777,7 +1671,6 @@ var Game = function () {
             'player_score_East',
             'hint_button',
             'player_play_prompt',
-            'choose_bid_view'
             ];
         for (var i = 0; i < viewsToHide.length; i++) {
             var view = document.getElementById(viewsToHide[i]);
@@ -1815,7 +1708,6 @@ var Game = function () {
             'player_score_East',
             'hint_button',
             'player_play_prompt',
-            'choose_bid_view'
         ];
         for (var i = 0; i < viewsToPosition.length; i++) {
             var view = document.getElementById(viewsToPosition[i]);

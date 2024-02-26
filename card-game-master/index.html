@@ -2,8 +2,6 @@
 <html lang="en">
 
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127156293-1"></script>
 	<script>
   		window.dataLayer = window.dataLayer || [];
   		function gtag(){dataLayer.push(arguments);}
@@ -12,10 +10,10 @@
 	</script>
 
 
-	<title>Spades Card Classic | Play online in your browser for free!</title>
+	<title>Card Game</title>
 	<meta charset="utf-8">
-	<meta name="description" content="Play spades online with this website.  This is the best free spades game online. The site is built with HTML CSS and Javascript">
-	<meta name="author" content="Spades Card Classic">
+	<meta name="description" content="Play Card Game">
+	<meta name="author" content="Card Game">
 
 	<meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
 	
@@ -53,29 +51,6 @@
 	<script type="text/javascript" src="player.js"></script>
 	<script type="text/javascript" src="GameSimulator.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
-	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-	<script>
-	window.addEventListener("load", function(){
-	window.cookieconsent.initialise({
-		"palette": {
-    "popup": {
-      "background": "#252e39"
-    },
-    "button": {
-      "background": "#14a7d0"
-    }
-  },
-	"theme": "edgeless",
-	"position": "bottom-left",
-	"content": {
-		"message": "This site uses cookies to analyze traffic and for ad personalization and ad measurement purposes.",
-		"dismiss": "OK",
-		"link": "Learn more",
-		"href": "https://policies.google.com/technologies/cookies"
-	}
-	})});
-	</script>
 </head>
 
 <body onresize="game.OnResizeWindow()">
@@ -141,48 +116,6 @@
 	</div>
 
 	<div id="cards_region"></div>
-
-	<button id="get_more_games_button" onclick="PlayMoreGamesButtonPressed()">
-		Play More<br>Card Classics
-	</button>
-
-	</div>
-
-	<div id="adView" align="center">
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- Spades Web -->
-		<ins class="adsbygoogle"
-			 style="display:inline-block;width:728px;height:90px"
-			 data-ad-client="ca-pub-2857597813964310"
-			 data-ad-slot="6668056066"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-	</div>
-
-	<div id="choose_bid_view">
-		<div id="choose_bid_title">Choose a bid:</div>
-		<div id="choose_bid_row_1">
-			<button class="choose_bid_button" id="choose_bid_button_0" onclick="game.OnChooseBidButtonPressed(0)">0</button>
-			<button class="choose_bid_button" id="choose_bid_button_1" onclick="game.OnChooseBidButtonPressed(1)">1</button>
-			<button class="choose_bid_button" id="choose_bid_button_2" onclick="game.OnChooseBidButtonPressed(2)">2</button>
-			<button class="choose_bid_button" id="choose_bid_button_3" onclick="game.OnChooseBidButtonPressed(3)">3</button>
-			<button class="choose_bid_button" id="choose_bid_button_4" onclick="game.OnChooseBidButtonPressed(4)">4</button>
-		</div>
-		<div id="choose_bid_row_2">
-			<button class="choose_bid_button" id="choose_bid_button_5" onclick="game.OnChooseBidButtonPressed(5)">5</button>
-			<button class="choose_bid_button" id="choose_bid_button_6" onclick="game.OnChooseBidButtonPressed(6)">6</button>
-			<button class="choose_bid_button" id="choose_bid_button_7" onclick="game.OnChooseBidButtonPressed(7)">7</button>
-			<button class="choose_bid_button" id="choose_bid_button_8" onclick="game.OnChooseBidButtonPressed(8)">8</button>
-		</div>
-		<div id="choose_bid_row_3">
-			<button class="choose_bid_button" id="choose_bid_button_9" onclick="game.OnChooseBidButtonPressed(9)">9</button>
-			<button class="choose_bid_button" id="choose_bid_button_10" onclick="game.OnChooseBidButtonPressed(10)">10</button>
-			<button class="choose_bid_button" id="choose_bid_button_11" onclick="game.OnChooseBidButtonPressed(11)">11</button>
-			<button class="choose_bid_button" id="choose_bid_button_12" onclick="game.OnChooseBidButtonPressed(12)">12</button>
-			<button class="choose_bid_button" id="choose_bid_button_13" onclick="game.OnChooseBidButtonPressed(13)">13</button>
-		</div>
-	</div>
 	
 	<div id="GameOverView">
 		<div id="GameOverResultText">You won!</div>
@@ -241,10 +174,6 @@
 			</center>
 			<table style="width:100%; text-align:left; font-size:12pt;">
 				<tr>
-					<td valign="top" width="80pt">Bidding:</td>
-					<td>The computer determines a bid by simulating, for each possible bid (0 to 13), the outcome of one hundred random deals of the remaining unseen cards.  When running the simulations, each player is assumed to use the 'Standard' playing strategy.  It then chooses the highest bid that resulted in an average number of tricks taken above the bid.</td>
-				</tr>
-				<tr>
 					<td valign="top" width="80pt">Playing:</td>
 				<td>When the player has not yet achieved their bid, then they attempt to take the trick by leading with their highest card of the lead suit.  When they have no chance to take the trick, they play their lowest valid card.  When the player has already achieved their bid, they attempt to not take the trick by playing their lowest card.  If they must take the trick, they use their highest card.</td>
 				</tr>
@@ -256,10 +185,6 @@
 				</div>
 			</center>
 			<table style="width:100%; text-align:left; font-size:12pt;">
-				<tr>
-					<td valign="top" width="80pt">Bidding:</td>
-					<td>The computer determines a bid by simulating, for each possible bid (0 to 13), the outcome of one hundred random deals of the remaining unseen cards.  When running the simulations, each player is assumed to use the 'Standard' playing strategy.  It then chooses the highest bid that resulted in an average number of tricks taken above the bid.</td>
-				</tr>
 				<tr>
 					<td valign="top" width="80pt">Playing:</td>
 					<td>The computer determines the probability of taking the trick for each valid play in their hand.  Probabilities are determined by simulating 100 possible distributions of the unseen cards and assuming each player will choose their play using the 'Standard' strategy.  If the player has already achieved their bid then they will play the least likely card to take the trick.  And if they have not yet achieved their bid then they will play the card that is most likely to take the trick.  If no card has more than a 50% chance of taking the trick, then the lowest probability card is played.</td>
@@ -277,15 +202,6 @@
 				<td>
 					<label class="switch">
 						<input id="setting_hints_checkbox" type="checkbox" onclick="SettingHintsClicked(this)">
-						<span class="slider round"></span>
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<td>Sand bagging penalty:</td>
-				<td>
-					<label class="switch">
-						<input id="setting_sandbaggingpenalty_checkbox" type="checkbox" onclick="SettingSandBaggingPenaltyClicked(this)">
 						<span class="slider round"></span>
 					</label>
 				</td>
@@ -427,14 +343,6 @@
 			<br>
 			<center>
 				<div style="font-size:16pt">
-					<u>Bidding</u>
-				</div>
-			</center>
-			Starting with the player to the left of the dealer, each player bids on the minimum number of tricks that they expect to take for the round.  A bid of zero is called a 'nil bid' and results in a score of 100 if succesful and a score of -100 if any tricks are taken.
-			<br>
-			<br>
-			<center>
-				<div style="font-size:16pt">
 					<u>Trick Taking</u>
 				</div>
 			</center>
@@ -456,54 +364,6 @@
 			<br>
 		</div>
 	</div>
-
-	<div id="play_more_games_menu">
-		<div id="play_more_games_title">Play More<br>Card Classics</div>
-		<button id="play_more_games_close_button" class="close_button" onclick="play_more_games_close_click()">X</button>
-		<a class="more_games_icon_button" href="http://www.solitairecardclassic.com" style="margin-top: 65px">
-			<span style="display: block; width:100%; height:100%">
-				<div id="more_games_icon_solitaire"></div>
-				<div class="more_games_icon_title">
-					<center>
-						<div class="more_games_icon_title1">SOLITAIRE</div>
-						<div class="more_games_icon_title2">CARD CLASSIC</div>
-					</center>
-				</div>
-			</span>
-		</a>
-		<a class="more_games_icon_button" href="http://www.heartscardclassic.com">
-			<span style="display: block; width:100%; height:100%">
-				<div id="more_games_icon_hearts"></div>
-				<div class="more_games_icon_title">
-					<center>
-						<div class="more_games_icon_title1">HEARTS</div>
-						<div class="more_games_icon_title2">CARD CLASSIC</div>
-					</center>
-				</div>
-			</span>
-		</a>
-		<a class="more_games_icon_button" href="http://www.pinochleclassic.com">
-			<span style="display: block; width:100%; height:100%">
-				<div id="more_games_icon_pinochle"></div>
-				<div class="more_games_icon_title">
-					<center>
-						<div class="more_games_icon_title1">PINOCHLE</div>
-						<div class="more_games_icon_title2">CARD CLASSIC</div>
-					</center>
-				</div>
-			</span>
-		</a>
-		<a class="more_games_icon_button" href="http://www.cribbageclassic.com">
-			<span style="display: block; width:100%; height:100%">
-				<div id="more_games_icon_cribbage"></div>
-				<div class="more_games_icon_title">
-					<center>
-						<div class="more_games_icon_title1">CRIBBAGE</div>
-						<div class="more_games_icon_title2">CLASSIC</div>
-					</center>
-				</div>
-			</span>
-		</a>
 	</div>
 </body>
 

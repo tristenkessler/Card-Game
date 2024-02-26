@@ -434,60 +434,6 @@ input:checked + .slider:before {
 .card_back_red{background-image:url('images/card_back_red.jpg');}
 .card_back_green{background-image:url('images/card_back_green.jpg');}
 
-#choose_bid_view {
-	z-index: 999;
-	opacity:0;
-	pointer-events: none;
-	background:#000000;
-	border:#FFFFFF 2px solid;
-	border-radius:15px;
-	box-shadow: 15px 15px 0px rgba(0,0,0,0.5);
-	position: absolute;
-	top:33%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-#choose_bid_title {
-	text-align:center;
-	font-size:22pt;
-	top:7px;
-}
-
-#choose_bid_row_1 {
-	display: block;
-	white-space: nowrap;
-}
-
-#choose_bid_row_2 {
-	display: block;
-	margin-left: 30pt;
-	white-space: nowrap;
-}
-
-#choose_bid_row_3 {
-	display: block;
-	white-space: nowrap;
-	margin-bottom: 5pt;
-}
-
-.choose_bid_button {
-	cursor: pointer;
-	display: inline-block;
-	border:#FFFFFF 2px solid;
-	border-radius:15px;
-	background:#222222;
-	color:white;
-	width:50pt;
-	height:50pt;
-	font-size:18pt;
-	margin: 5pt;
-}
-
-.choose_bid_button:hover {
-	background:#666666;
-}
-
 #get_more_games_button {
 	cursor: pointer;
 	position: absolute;

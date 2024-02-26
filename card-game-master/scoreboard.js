@@ -76,13 +76,6 @@ var Scoreboard = function () {
                 roundScore.style.left = i*50 + 'px';
                 roundScore.style.top = 3 + j*38 + 'px';
                 container.appendChild(roundScore);
-
-                var roundTricksBid = document.createElement('div');
-                roundTricksBid.className = 'scoreboardRoundBidsEntry';
-                roundTricksBid.innerHTML = '(' + game.roundTricksTaken[i][curPlayerIndex] + "/" + game.roundBids[i][curPlayerIndex] + ')';
-                roundTricksBid.style.left = i*50 + 'px';
-                roundTricksBid.style.top = 20 + j*38 + 'px';
-                container.appendChild(roundTricksBid);
             }
         }
 

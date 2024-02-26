@@ -151,7 +151,6 @@ function ShowSettingsMenu() {
 
 function InitializeSettingsView() {
 	document.getElementById("setting_hints_checkbox").checked = GetSetting('setting_hints');
-	document.getElementById("setting_sandbaggingpenalty_checkbox").checked = GetSetting('setting_sandbaggingpenalty');
 	document.getElementById("winning_score_dropdown").value = GetSetting('setting_winning_score');
 
 	var board_color = GetSetting('setting_board_color');
@@ -173,10 +172,6 @@ function InitializeSettingsView() {
 
 function SettingHintsClicked(cb) {
 	SetSetting('setting_hints', cb.checked);
-}
-
-function SettingSandBaggingPenaltyClicked(cb) {
-	SetSetting('setting_sandbaggingpenalty', cb.checked);
 }
 
 function SettingWinningScoreChanged(winningScoreSelect) {

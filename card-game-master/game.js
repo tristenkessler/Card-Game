@@ -1230,9 +1230,6 @@ var Game = function () {
 
         this.roundScores.push(aRoundScores);
         this.roundTricksTaken.push(aRoundTricksTaken);
-        this.dealerIndex += 1;
-        this.leadIndex += 1;
-        this.turnIndex += 1;
 
         scoreboard.UpdateScores(this.roundNumber !== 1);
     }
@@ -1260,7 +1257,7 @@ var Game = function () {
                 });
                 var winner = p[0];
                 if (winner.gameScore > p[1].gameScore) {
-                    return winner;
+                    return p[3];
                 }
                 return null;
             }
@@ -1274,30 +1271,54 @@ var Game = function () {
         var gameOverLine2 = "";
         switch (humanPlayerPlace) {
             case 1:
-                gameOverLine1 = "You won!";
+                /**gameOverLine1 = "You won!";
                 gameOverLine2 = "vs the " + this.skillLevel.toLowerCase() + " players";
                 var setting = 'stat_wins_' + this.skillLevel;
                 var settingVal = GetStatistic(setting);
                 SetStatistic(setting, settingVal + 1);
+                break;*/
+                gameOverLine1 = winner.name + " won.";
+                gameOverLine2 = "You finished in 4th place.";
+                var setting = 'stat_4th_' + this.skillLevel;
+                var settingVal = GetStatistic(setting);
+                SetStatistic(setting, settingVal + 1);
                 break;
             case 2:
-                gameOverLine1 = winner.name + " won.";
+                /**gameOverLine1 = winner.name + " won.";
                 switch (humanPlayerPlace) { case 2: gameOverLine2 = "You finished in 2nd place."; break; case 3: gameOverLine2 = "You finished in 3rd place."; break; case 4: gameOverLine2 = "You finished in 4th place."; break;};
                 var setting = 'stat_2nd_' + this.skillLevel;
                 var settingVal = GetStatistic(setting);
                 SetStatistic(setting, settingVal + 1);
-                break;
-            case 3:
+                break;*/
                 gameOverLine1 = winner.name + " won.";
-                switch (humanPlayerPlace) { case 2: gameOverLine2 = "You finished in 2nd place."; break; case 3: gameOverLine2 = "You finished in 3rd place."; break; case 4: gameOverLine2 = "You finished in 4th place."; break;};
+                gameOverLine2 = "You finished in 3rd place.";
                 var setting = 'stat_3rd_' + this.skillLevel;
                 var settingVal = GetStatistic(setting);
                 SetStatistic(setting, settingVal + 1);
                 break;
-            case 4:
+            case 3:
+                /**gameOverLine1 = winner.name + " won.";
+                switch (humanPlayerPlace) { case 2: gameOverLine2 = "You finished in 2nd place."; break; case 3: gameOverLine2 = "You finished in 3rd place."; break; case 4: gameOverLine2 = "You finished in 4th place."; break;};
+                var setting = 'stat_3rd_' + this.skillLevel;
+                var settingVal = GetStatistic(setting);
+                SetStatistic(setting, settingVal + 1);
+                break;*/
                 gameOverLine1 = winner.name + " won.";
+                gameOverLine2 = "You finished in 2nd place.";
+                var setting = 'stat_2nd_' + this.skillLevel;
+                var settingVal = GetStatistic(setting);
+                SetStatistic(setting, settingVal + 1);
+                break;
+            case 4:
+                /**gameOverLine1 = winner.name + " won.";
                 switch (humanPlayerPlace) { case 2: gameOverLine2 = "You finished in 2nd place."; break; case 3: gameOverLine2 = "You finished in 3rd place."; break; case 4: gameOverLine2 = "You finished in 4th place."; break;};
                 var setting = 'stat_4th_' + this.skillLevel;
+                var settingVal = GetStatistic(setting);
+                SetStatistic(setting, settingVal + 1);
+                break;*/
+                gameOverLine1 = "You won!";
+                gameOverLine2 = "vs the " + this.skillLevel.toLowerCase() + " players";
+                var setting = 'stat_wins_' + this.skillLevel;
                 var settingVal = GetStatistic(setting);
                 SetStatistic(setting, settingVal + 1);
                 break;

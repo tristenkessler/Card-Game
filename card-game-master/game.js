@@ -932,51 +932,6 @@ var Game = function () {
             playerName.style.top = pos[1] + 'px';
         }
     }
-    
-    function GetHintButtonPosition() {
-        var left = window.innerWidth*0.5 + 250;
-        if (left > window.innerWidth - 130) {
-            left = window.innerWidth - 130;
-        }
-        return [left, window.innerHeight-340];
-    }
-
-    function ShowHintButton(delay) {
-        var hintButton = document.getElementById('hint_button');
-        hintButton.positionFunction = "GetHintButtonPosition()";
-        hintButton.style.transition = "none";
-        var loc = eval(hintButton.positionFunction);
-        hintButton.style.left = loc[0] + 'px';
-        hintButton.style.top = loc[1] + 'px';
-        hintButton.style.visibility = 'visible';
-        hintButton.style.pointerEvents = "auto";
-        setTimeout(function () {
-            hintButton.style.transition = "0.5s linear";
-            hintButton.style.opacity = 1;
-            setTimeout(function() {
-                hintButton.style.transition = "none";
-            }, 600);
-        }, delay);
-    }
-
-    function HideHintButton() {
-        var hintButton = document.getElementById('hint_button');
-        hintButton.style.opacity = 0;
-        hintButton.style.pointerEvents = "none";
-    }
-
-    this.OnHintButtonClick = function () {
-        this.BumpHintCards();
-    }
-
-    this.BumpHintCards = function() {
-        var optimalCards = [];
-        var player = this.players[0];
-        var bestCard = player.FindBestPlayingCard(game, true);
-        optimalCards.push(bestCard);
-
-        BumpCards(optimalCards, 0);
-    }
 
     this.StartTrickTaking = function() {
         this.turnIndex = this.dealerIndex + 1;
@@ -1023,9 +978,6 @@ var Game = function () {
             }
         }
         
-        if (this.skillLevel === 'Easy' || GetSetting('setting_hints')) {
-            ShowHintButton(0);
-        }
 
         this.currentMoveStage = "ChoosingTrickCard";
     }
@@ -1131,7 +1083,6 @@ var Game = function () {
 
     this.DropCardInTrickPile = function() {
         var playedCard = currentDraggedCardView.card;
-        HideHintButton();
         this.OnPlayerChosePlayCard(playedCard);
     }
 
@@ -1324,7 +1275,6 @@ var Game = function () {
                 break;
         }
 
-        HideHintButton();
         HideMenuButton();
         HideAllMessages();
 
@@ -1690,7 +1640,6 @@ var Game = function () {
             'player_score_West',
             'player_score_North',
             'player_score_East',
-            'hint_button',
             'player_play_prompt',
             ];
         for (var i = 0; i < viewsToHide.length; i++) {
@@ -1727,7 +1676,6 @@ var Game = function () {
             'player_score_West',
             'player_score_North',
             'player_score_East',
-            'hint_button',
             'player_play_prompt',
         ];
         for (var i = 0; i < viewsToPosition.length; i++) {

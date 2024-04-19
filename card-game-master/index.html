@@ -74,7 +74,6 @@
 
 		<div id="player_play_prompt">Drop a card here</div>
 
-		<button id="hint_button" onclick="game.OnHintButtonClick()">Hint</button>
 		
 		<div id="scoreboard">
 			<div id="scoreboardBackground" onclick="game.OnScoreboardClick()">
@@ -157,10 +156,6 @@
 			</center>
 			<table style="width:100%; text-align:left; font-size:12pt;">
 				<tr>
-					<td valign="top" width="80pt">Bidding:</td>
-					<td>Chooses a random bid between 1 and 4</td>
-				</tr>
-				<tr>
 					<td valign="top" width="80pt">Playing:</td>
 					<td>Chooses a random valid card</td>
 				</tr>
@@ -174,7 +169,7 @@
 			<table style="width:100%; text-align:left; font-size:12pt;">
 				<tr>
 					<td valign="top" width="80pt">Playing:</td>
-				<td>When the player has not yet achieved their bid, then they attempt to take the trick by leading with their highest card of the lead suit.  When they have no chance to take the trick, they play their lowest valid card.  When the player has already achieved their bid, they attempt to not take the trick by playing their lowest card.  If they must take the trick, they use their highest card.</td>
+				<td>The player attempts to not take the trick by leading with their lowest card of the lead suit.  When they must take the trick, they play their highest valid card.</td>
 				</tr>
 			</table>
 			<br>
@@ -186,7 +181,7 @@
 			<table style="width:100%; text-align:left; font-size:12pt;">
 				<tr>
 					<td valign="top" width="80pt">Playing:</td>
-					<td>The computer determines the probability of taking the trick for each valid play in their hand.  Probabilities are determined by simulating 100 possible distributions of the unseen cards and assuming each player will choose their play using the 'Standard' strategy.  If the player has already achieved their bid then they will play the least likely card to take the trick.  And if they have not yet achieved their bid then they will play the card that is most likely to take the trick.  If no card has more than a 50% chance of taking the trick, then the lowest probability card is played.</td>
+					<td>The computer determines the probability of taking the trick for each valid play in their hand.  Probabilities are determined by simulating 100 possible distributions of the unseen cards and assuming each player will choose their play using the 'Standard' strategy. They will play the least likely card to take the trick.  If no card has more than a 50% chance of not taking the trick, then the highest probability card is played.</td>
 				</tr>
 			</table>
 		</div>
@@ -196,15 +191,6 @@
 		<div id="menu_settings_title" class="menu_card_title">Settings</div>
 		<button id="menu_settings_close_button" class="close_button" onclick="menu_card_close_click()">X</button>
 		<table style="margin-left:5%; width:95%; margin-top:55pt; margin-bottom: 10px; text-align:left; font-size:16pt;">
-			<tr>
-				<td>Hint button on all levels:</td>
-				<td>
-					<label class="switch">
-						<input id="setting_hints_checkbox" type="checkbox" onclick="SettingHintsClicked(this)">
-						<span class="slider round"></span>
-					</label>
-				</td>
-			</tr>
 			<tr>
 				<td>Winning score:</td>
 				<td>
@@ -321,7 +307,7 @@
 		<div id="menu_tutorial_title" class="menu_card_title">Tutorial</div>
 		<button id="menu_tutorial_close_button" class="close_button" onclick="menu_card_close_click()">X</button>
 		<div id="menu_tutorial_body">
-			Oh Crud is a trick taking card game.  The object of each round is to take the least the number of tricks that you that you can given the parameters for the round.  After six rounds the lowest score wins the game.  The spade suit is always trump.
+			Oh Crud is a trick taking card game.  The object of each round is to take the least number of tricks that you can given the parameters for the round.  After six rounds the lowest score wins the game.  The spade suit is always trump.
 			<br>
 			<br>
 			<center>
@@ -345,7 +331,7 @@
 					<u>Trick Taking</u>
 				</div>
 			</center>
-			The player on the dealer's left makes the opening lead by playing a single card of their choice.  Players in clockwise fashion then play a card of their choice; they must follow suit if they can, otherwise they may play any card including a trump spade.  A player may not lead spades until a spade has been played to trump another trick.
+			The user player makes the opening lead by playing a single card of their choice.  Players in clockwise fashion then play a card of their choice; they must follow suit if they can, otherwise they may play any card including a trump spade.  A player may not lead spades until a spade has been played to trump another trick.
 			<br>
 			<br>
 			The trick is won or taken by the player who played the highest card of the led suit, or if trumps were played, the highest trump card wins.  The player who wins any given trick leads next.  Play continues until all players have exhausted their hands.
@@ -356,10 +342,8 @@
 					<u>Scoring</u>
 				</div>
 			</center>
-			Once a round is completed, each player is assigned a score based on whether they achieved their bid.  If the player took at least the number of tricks that they bid then they are awarded 10 points for each trick that they bid and 1 point for each trick over their bid.  Tricks taken that are more than the bid are called 'bags'.  If a player does not take at least the number of tricks that they bid then they score zero points.  In the case where a user bid nil, if they take no tricks then they are assigned 100 points, but if they take at least one trick then they lose 100 points.
+			Once a round is completed, each player is assigned a score based on the amount of tricks taken.
 			<br>
-			<br>
-			An optional 'bagging' rule is designed to penalize players for underestimating the number of tricks they will take.  When this setting is turned on, players are assigned a 100 point penalty when they accumulate 10 bags.
 			<br>
 		</div>
 	</div>

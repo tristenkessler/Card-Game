@@ -1,19 +1,9 @@
-var setting_hints_default = false;
-var setting_sandbaggingpenalty_default = true;
 var setting_winning_score_default = 500;
 var setting_board_color_default = 'wood';
 var setting_card_color_default = 'blue';
 
 function GetSetting(setting) {
 	switch (setting) {
-		case "setting_hints":
-			var settingVal = window.localStorage.getItem(setting);
-			return settingVal == null ? setting_hints_default : (settingVal == 'true');
-			break;
-		case "setting_sandbaggingpenalty":
-			var settingVal = window.localStorage.getItem(setting);
-			return settingVal == null ? setting_sandbaggingpenalty_default : (settingVal == 'true');
-			break;
 		case "setting_winning_score":
 			var settingVal = window.localStorage.getItem(setting);
 			return settingVal == null ? setting_winning_score_default : settingVal;

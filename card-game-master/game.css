@@ -31,24 +31,6 @@
     pointer-events: none;
 }
 
-#hint_button {
-    position: absolute;
-    cursor: pointer;
-    width: 70px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0);
-    border:#FFFFFF 2px solid;
-    border-width: 1px;
-    border-radius: 7px;
-    color:white;
-    font-size: 13pt;
-    visibility: hidden;
-    opacity: 0;
-}
-
-#hint_button:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
 
 #GameOverView {
     z-index: 999;

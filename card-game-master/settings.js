@@ -36,19 +36,3 @@ function GetStatisticString(statistic) {
 function SetStatistic(statistic, value) {
 	window.localStorage.setItem(statistic, value);
 }
-
-function redirectToAppStore() {
-	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  
-	if (/android/i.test(userAgent)) {
-		window.location.replace("https://play.google.com/store/apps/details?id=com.gamesbypost.heartscardclassic");
-		return true;
-	}
-  
-	if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-		window.location.replace("https://itunes.apple.com/us/app/hearts-card-classic/id1365096468?mt=8");
-		return true;
-	}
-	
-	return false;
-}
